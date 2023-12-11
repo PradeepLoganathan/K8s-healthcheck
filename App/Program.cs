@@ -30,6 +30,31 @@ app.MapGet("/hello", (ILogger<Program> logger) =>
     return "Hello from Minimal API!";
 });
 
+app.MapPost("/healthz/status", (bool? isLive, bool? isReady) =>
+{
+    string responseMessage = "";
+
+    if (isLive.HasValue)
+    {
+        HealthStatusController.IsLive = isLive.Value;
+        responseMessage += $"Liveness set to: {isLive.Value}. ";
+    }
+
+    if (isReady.HasValue)
+    {
+        HealthStatusController.IsReady = isReady.Value;
+        responseMessage += $"Readiness set to: {isReady.Value}. ";
+    }
+
+    return responseMessage != "" ? Results.Ok(responseMessage) : Results.BadRequest("No valid parameters provided.");
+});
+
+app.MapGet("/healthz/status", () => new 
+{
+    IsLive = HealthStatusController.IsLive,
+    IsReady = HealthStatusController.IsReady
+});
+
 
 app.MapHealthChecks("/healthz/startup", new HealthCheckOptions
 {

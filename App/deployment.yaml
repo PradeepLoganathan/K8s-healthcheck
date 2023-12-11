@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: dotnet-webapi-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: dotnet-webapi
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: dotnet-webapi
-        image: k8shealth:0.3
+        image: k8shealth:0.6
         ports:
         - containerPort: 80
         livenessProbe:

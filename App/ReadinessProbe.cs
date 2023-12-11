@@ -10,7 +10,7 @@ public class ReadinessProbe : IHealthCheck
     }
     public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = new CancellationToken())
     {
-        bool isReady = true; // Replace with actual readiness logic
+        bool isReady = HealthStatusController.IsReady; // Replace with actual readiness logic
         if (isReady)
         {
             _logger.LogInformation("Received a request at the /readiness probe.");
