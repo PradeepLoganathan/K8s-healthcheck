@@ -1,0 +1,6 @@
+@K8s_healthcheck_HostAddress = http://localhost:5027
+
+GET {{K8s_healthcheck_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
